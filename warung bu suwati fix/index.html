@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.supabase.co; frame-src https://*.google.com https://*.google.co.id; connect-src https://*.supabase.co; manifest-src 'self'; worker-src 'self'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#2f7f73">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232f7f73'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='%23fef3c7' font-family='sans-serif'%3EW%3C/text%3E%3C/svg%3E">
+<title>Toko Kelontong Bu Suwati - Belanja Kebutuhan Harian, Bisa Diantar</title>
+<meta name="description" content="Toko Kelontong Bu Suwati: sembako, snack, minuman, dan kebutuhan rumah. Pesan lewat WhatsApp, diantar ke rumah atau ambil sendiri.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+</head>
+<body>
+<div class="offline-bar" id="offlineBar" role="status" hidden>Anda sedang offline. Katalog tetap bisa dilihat, tapi pesanan WA butuh koneksi.</div>
+<div class="awning" aria-hidden="true"></div>
+<header class="topbar">
+  <a class="brand" href="#atas">Toko Bu Suwati</a>
+  <nav aria-label="Navigasi utama">
+    <a href="#katalog">Belanja</a>
+    <a href="#cara-pesan">Cara Pesan</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#lokasi">Lokasi</a>
+  </nav>
+  <button class="install-btn" id="installBtn" type="button" hidden>Install Aplikasi</button>
+  <button class="cart-btn" id="openCart" type="button" aria-label="Buka keranjang">
+    Keranjang <span class="badge" id="cartCount">0</span>
+  </button>
+</header>
+
+<main id="atas">
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Sugeng rawuh, ini warungnya Bu Suwati.</h1>
+      <p>Beras, minyak, mi instan, sampai sabun cuci, semua ada. Pilih barangnya, kirim pesanan lewat WhatsApp, nanti Ibu siapkan atau antar ke rumah.</p>
+      <a class="btn" href="#katalog">Mulai belanja</a>
+    </div>
+    <aside class="hours" aria-label="Jam buka">
+      <p class="hours-title">Buka hari ini</p>
+      <p class="hours-time">06.00 - 20.00</p>
+      <p class="hours-note">Senin sampai Minggu. Pesanan masuk setelah jam 20.00 kami balas besok pagi.</p>
+    </aside>
+  </section>
+
+  <section id="katalog" class="section">
+    <h2>Mau beli apa hari ini?</h2>
+    <div class="tools">
+      <div class="tools-row">
+        <label class="sr" for="search">Cari produk</label>
+        <input id="search" type="search" maxlength="40" placeholder="Cari beras, kopi, sabun...">
+        <label class="sr" for="sort">Urutkan produk</label>
+        <select id="sort">
+          <option value="default">Urutkan: Default</option>
+          <option value="murah">Termurah</option>
+          <option value="mahal">Termahal</option>
+          <option value="az">A–Z</option>
+          <option value="stok">Stok Terbanyak</option>
+        </select>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter kategori"></div>
+    </div>
+    <div class="grid" id="productGrid" aria-live="polite"></div>
+  </section>
+
+  <section id="cara-pesan" class="section">
+    <h2>Cara Pesan</h2>
+    <ol class="steps">
+      <li class="step"><span class="step-no" aria-hidden="true">1</span><div><h3>Pilih Barang</h3><p>Telusuri katalog, klik Tambah ke Keranjang. Bisa juga atur satuan (1 kg, 1/2 kg, dll).</p></div></li>
+      <li class="step"><span class="step-no" aria-hidden="true">2</span><div><h3>Isi Keranjang</h3><p>Buka keranjang, atur jumlah, pilih Diantar atau Ambil sendiri. Isi nama &amp; alamat.</p></div></li>
+      <li class="step"><span class="step-no" aria-hidden="true">3</span><div><h3>Kirim ke WhatsApp</h3><p>Klik Pesan via WhatsApp. Pesanan otomatis terkirim ke Bu Suwati. Konfirmasi lewat chat.</p></div></li>
+    </ol>
+    <a class="btn" href="#katalog">Mulai Belanja</a>
+  </section>
+
+  <section id="tentang" class="section about">
+    <h2>Tentang warung kami</h2>
+    <p>Bu Suwati mulai jualan dari teras rumah tahun 2020, dengan modal uang kompensasi saat keluar kerja. Sekarang warungnya sudah dikenal tetangga satu RW. Harga dijaga wajar, barang selalu dicek tanggal kedaluwarsanya, dan kalau ada yang kurang pas, bilang saja langsung ke Ibu.</p>
+    <p>Sejak ada pesan lewat WhatsApp, pelanggan yang sibuk atau sedang kurang sehat tetap bisa belanja tanpa keluar rumah.</p>
+  </section>
+
+  <section id="lokasi" class="section">
+    <h2>Mampir ke warung</h2>
+    <div class="loc">
+      <div class="map">
+        <!-- Ganti src dengan link embed Google Maps lokasi toko Anda -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d203.60254786178288!2d110.41049726421225!3d-7.166159335299534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7087003f92d075%3A0xe3a402efd8026436!2sWarung%20Bu%20Suwati!5e1!3m2!1sid!2sid!4v1794939496915!5m2!1sid!2sid"
+          width="100%"
+          height="450"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="Lokasi Warung Bu Suwati di Google Maps">
+        </iframe>
+      </div>
+      <div class="loc-info">
+        <h3>Alamat</h3>
+        <p>RCM6+G7M, Kaliaang Dua, Langensari, Kec. Ungaran Bar., Kabupaten Semarang, Jawa Tengah 50518</p>
+        <h3>Jam operasional</h3>
+        <p>Setiap hari, 06.00 – 20.00 WIB</p>
+        <h3>WhatsApp</h3>
+        <p><a href="https://wa.me/6285718955570">0857-1895-5570</a></p>
+        <h3>Antar ke rumah</h3>
+        <p>Gratis untuk area sekitar warung. Di luar itu, ongkos kirim kami kabari lewat WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Toko Kelontong Bu Suwati. Terima kasih sudah belanja di warung kami.</p>
+  <p>WhatsApp: <a href="https://wa.me/6285718955570">0857-1895-5570</a></p>
+</footer>
+
+<div class="overlay" id="overlay" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Keranjang belanja" aria-hidden="true">
+  <div class="drawer-head">
+    <h2>Keranjang kamu</h2>
+    <button type="button" class="close" id="closeCart" aria-label="Tutup keranjang">&times;</button>
+  </div>
+  <div class="drawer-body">
+    <ul class="cart-list" id="cartList"></ul>
+    <div class="empty-state" id="cartEmpty">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10h8l6 30h30l6-22H17"/><circle cx="26" cy="52" r="4"/><circle cx="46" cy="52" r="4"/></svg>
+      <p>Keranjang masih kosong, yuk pilih barang dulu 🛒</p>
+      <button type="button" class="btn" id="emptyBrowse">Lihat Produk</button>
+    </div>
+    <form id="orderForm" class="order">
+      <fieldset>
+        <legend>Cara terima barang</legend>
+        <label class="radio"><input type="radio" name="mode" value="Diantar" checked> Diantar</label>
+        <label class="radio"><input type="radio" name="mode" value="Ambil Sendiri"> Ambil sendiri</label>
+      </fieldset>
+      <label for="nama">Nama</label>
+      <input id="nama" name="nama" required maxlength="60" autocomplete="name" placeholder="Nama kamu">
+      <div id="alamatWrap">
+        <label for="alamat">Alamat pengantaran</label>
+        <textarea id="alamat" name="alamat" rows="2" maxlength="200" autocomplete="street-address" placeholder="Jalan, nomor rumah, patokan"></textarea>
+      </div>
+      <label for="catatan">Catatan (boleh kosong)</label>
+      <textarea id="catatan" name="catatan" rows="2" maxlength="200" placeholder="Misal: gula yang 1 kg saja"></textarea>
+      <div class="total"><span>Total</span><strong id="cartTotal">Rp 0</strong></div>
+      <div class="copy-row">
+        <button class="btn-ghost" type="button" id="copyList">Salin Daftar Belanja</button>
+        <button class="btn-ghost" type="button" id="copyTotal">Salin Total</button>
+      </div>
+      <button class="btn wa" type="submit">Pesan via WhatsApp</button>
+      <button class="link" type="button" id="clearCart">Kosongkan keranjang</button>
+    </form>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
